@@ -11,7 +11,7 @@ export default {
 
     line: '#EBEBF0',
 
-    main: '#DC1637',
+    main: '#86B1F2',
     main_light: '#FDEDEF',
     success: '#03B252',
 
