@@ -7,9 +7,7 @@ interface ContainerProps {
 
 export const Container = styled.View<ContainerProps>`
   flex-direction: row;
-
   margin-bottom: 8px;
-  
   border-bottom-width: 2px;
   border-bottom-color: transparent;  
   ${({ isFocused, theme }) => isFocused && css`
@@ -18,7 +16,7 @@ export const Container = styled.View<ContainerProps>`
   `};
   `
 export const IconContainer = styled.View`
-  height: ${RFValue(56)}px;
+  min-height: ${RFValue(56)}px;
   width: ${RFValue(55)}px;
   justify-content: center;
   align-items: center;
@@ -34,5 +32,5 @@ export const InputText = styled.TextInput`
   color: ${({ theme }) => theme.colors.text};
   font-family: ${({ theme }) => theme.fonts.primary_400};
   font-size: ${RFValue(15)}px;
-  padding: 0 ${RFValue(23)}px;  
+  padding: ${RFValue(12)}px ${RFValue(23)}px;  
   `

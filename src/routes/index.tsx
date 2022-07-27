@@ -7,8 +7,8 @@ import { TabRoutes } from './tab.routes';
 export function Routes(){
   return (
     <NavigationContainer>
-      <AuthRoutes/>
-      {/* <TabRoutes/> */}
+      {/* <AuthRoutes/> */}
+      <TabRoutes/>
     </NavigationContainer>
   )
 }

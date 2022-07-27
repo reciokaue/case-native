@@ -14,6 +14,7 @@ export const Container = styled.View`
 export const Heading = styled.View`
   width: 100%;
   justify-content: flex-start;
+  margin-top: 15px;
 `;
 export const Title = styled.Text`
   font-size: ${RFValue(43)}px;
