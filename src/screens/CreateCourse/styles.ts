@@ -4,7 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 export const Container = styled.View`
   flex: 1;
-  background: ${({ theme }) => theme.colors.header};
+  height: 100%;
 `
 export const Header = styled.TouchableOpacity`
   width: 100%;
@@ -19,8 +19,7 @@ export const HeaderImage = styled.Image`
   height: 100%;
 `
 export const Form = styled.View`
-  width: 100%;
-  flex: 1;
+  /* height: 100%; */
   background: ${({ theme }) => theme.colors.background_primary};
 
   padding: ${RFValue(24)}px;
@@ -29,4 +28,5 @@ export const Frame = styled.View`
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  background: #466EB6;
 `

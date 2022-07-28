@@ -17,14 +17,23 @@ export const Container = styled(Button)<ButtonProps>`
   padding: 19px;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
 
   background-color: ${({ color }) => color};
   margin-bottom: 8px;
+  border-radius: 8px;
 `;
 
 export const Title = styled.Text<ButtonTextProps>`
   font-family: ${({theme}) => theme.fonts.primary_500};
   font-size: ${RFValue(15)}px;
   color: ${({theme, light}) => 
-  light ? theme.colors.header : theme.colors.shape};
+  light ? theme.colors.text_detail : theme.colors.shape};
 `;
+export const IconContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  
+  margin-right: 2px;
+  border-radius: 999px;
+`

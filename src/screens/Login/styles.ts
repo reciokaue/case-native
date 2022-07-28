@@ -30,7 +30,7 @@ export const SubTitle = styled.Text`
   margin-bottom: ${RFValue(25)}px;
 `
 export const Frame = styled.View`
-  width: 100%;
+  flex: 1;
   justify-content: space-between;
   align-items: center;
 `;

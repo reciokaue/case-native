@@ -38,7 +38,7 @@ export function Login() {
         password
       });
       if(response.status == '200'){
-        // navigation.navigate("PasswordChange")
+        navigation.navigate("PasswordChange")
       }
     }catch(error){
       if(error instanceof Yup.ValidationError){
@@ -95,7 +95,6 @@ export function Login() {
           title="Criar conta"
           color={theme.colors.background_secondary}
           light
-          loading={false}
           // onPress={handleNewAccount}
         />
       </Container>
