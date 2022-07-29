@@ -41,10 +41,6 @@ export function InputPassword({ iconName, value, ...rest} : Props ){
 
   return (
     <Container isFocused={isFocused}>
-      <IconContainer>
-        <Icon name={iconName} size={24} color={(isFocused || isFilled) ? theme.colors.main : theme.colors.text_detail}/>
-      </IconContainer>
-
       <InputText 
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
@@ -52,11 +48,11 @@ export function InputPassword({ iconName, value, ...rest} : Props ){
         autoCorrect={false}            
         {...rest}
       />
-        <IconContainer>
-      <BorderlessButton style={{padding: 6}} onPress={handlePasswordVisibilityChange}>
-          <Icon name={isPasswordVisible ? 'eye' : 'eye-off'}size={24}color={theme.colors.text_detail}/>
-      </BorderlessButton>
-        </IconContainer>
+      <IconContainer>
+        <BorderlessButton style={{padding: 6}} onPress={handlePasswordVisibilityChange}>
+            <Icon name={isPasswordVisible ? 'eye' : 'eye-off'}size={24} color={(isFocused || isFilled) ? theme.colors.main : theme.colors.text_detail}/>
+        </BorderlessButton>
+      </IconContainer>
     </Container>
   );
 }

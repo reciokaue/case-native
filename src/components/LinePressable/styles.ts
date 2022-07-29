@@ -7,16 +7,9 @@ interface ButtonProps {
   color: string;
 }
 
-interface ButtonTextProps {
-  light: boolean;
-}
-
 export const Wrapper = styled.TouchableOpacity<ButtonProps>`
   width: 100%;
   background-color: ${({ color }) => color};
-  margin-bottom: 8px;
-  border-radius: 8px;
-  overflow: hidden;
 `;
 export const Container = styled(Button)<ButtonProps>`
   width: 100%;
@@ -26,11 +19,10 @@ export const Container = styled(Button)<ButtonProps>`
   flex-direction: row;
 `;
 
-export const Title = styled.Text<ButtonTextProps>`
+export const Title = styled.Text`
   font-family: ${({theme}) => theme.fonts.primary_500};
   font-size: ${RFValue(15)}px;
-  color: ${({theme, light}) => 
-  light ? theme.colors.text_detail : theme.colors.shape};
+  color: ${({theme}) => theme.colors.text_detail};
 `;
 export const IconContainer = styled.View`
   justify-content: center;

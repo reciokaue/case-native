@@ -28,8 +28,7 @@ export function Input({iconName, value, ...rest}: Props){
 
   return (
     <Container isFocused={isFocused}>
-      <InputText onFocus={handleInputFocus}onBlur={handleInputBlur}{...rest}/>
-
+      <InputText value={value}  onFocus={handleInputFocus} onBlur={handleInputBlur}{...rest}/>
 
       {iconName &&
         <IconContainer>

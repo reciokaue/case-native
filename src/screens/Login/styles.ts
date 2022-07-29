@@ -38,10 +38,3 @@ export const Form = styled.View`
   width: 100%;
   margin: 20px 0;
 `;
-export const ForgotPassword = styled.Text`
-  font-size: ${RFValue(13)}px;
-  font-family: ${({ theme }) => theme.fonts.primary_400};
-  color: ${({ theme }) => theme.colors.text_detail}; 
-  margin-top: ${RFValue(5)}px;
-  margin-bottom: ${RFValue(25)}px;
-`

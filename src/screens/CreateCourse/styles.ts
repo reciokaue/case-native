@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   height: 100%;
 `
@@ -19,7 +19,6 @@ export const HeaderImage = styled.Image`
   height: 100%;
 `
 export const Form = styled.View`
-  /* height: 100%; */
   background: ${({ theme }) => theme.colors.background_primary};
 
   padding: ${RFValue(24)}px;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from 'styled-components';
 import {  RectButtonProps } from 'react-native-gesture-handler';
-import { Container, IconContainer, Title} from './styles';
+import { Container, IconContainer, Title, Wrapper} from './styles';
 import { ActivityIndicator } from 'react-native';
 const LoadingIcon: any = ActivityIndicator
 
@@ -28,24 +28,28 @@ export function Button({
   const theme = useTheme();
 
   return (
-    <Container 
-      color={color ? color : theme.colors.main} 
+    <Wrapper
       onPress={onPress}
-      enabled={enabled}
-      style={{ opacity: (enabled === false || loading === true) ? .5 : 1,
-        justifyContent: iconName? 'space-between': 'center'
-      }}
+      color={color ? color : theme.colors.main} 
+      activeOpacity={0.9}
+      enabled={loading? false: enabled}
     >
-      {
-        loading 
-        ? <LoadingIcon color={theme.colors.shape} />
-        : <Title light={light}>{title}</Title>      
-      }
-      {iconName &&
-        <IconContainer>
-          <Icon name={iconName} size={24} color={theme.colors.text_detail}/>
-        </IconContainer>
-      }
-    </Container>
+      <Container 
+        style={{ opacity: (enabled === false || loading === true) ? .5 : 1,
+          justifyContent: iconName? 'space-between': 'center'
+        }}
+      >
+        {
+          loading 
+          ? <LoadingIcon color={theme.colors.shape} />
+          : <Title  light={light}>{title}</Title>      
+        }
+        {iconName &&
+          <IconContainer>
+            <Icon name={iconName} size={24} color={theme.colors.text_detail}/>
+          </IconContainer>
+        }
+      </Container>
+    </Wrapper>
   );
 }

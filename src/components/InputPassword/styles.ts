@@ -8,12 +8,14 @@ interface ContainerProps {
 export const Container = styled.View<ContainerProps>`
   flex-direction: row;
   margin-bottom: 8px;
+  border-radius: 8px;
+  overflow: hidden;
 
-  border-bottom-width: 2px;
-  border-bottom-color: transparent;  
+  border-width: 2px;
+  border-color: transparent;  
   ${({ isFocused, theme }) => isFocused && css`
-    border-bottom-width: 2px;
-    border-bottom-color: ${theme.colors.main};    
+    border-width: 2px;
+    border-color: ${theme.colors.main};    
   `};
 `;
 export const IconContainer = styled.View`

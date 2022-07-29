@@ -15,12 +15,12 @@ const ViewCloseKeyboard:any = TouchableWithoutFeedback
 const ViewUpperKeyboard:any = KeyboardAvoidingView
 
 import * as Yup from 'yup';
+import { useApp } from "../../context/AppContext";
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const navigation = useNavigation();
+  const { handleLogin } = useApp() 
 
   async function handleSignIn(){
     try{
@@ -38,11 +38,11 @@ export function Login() {
         password
       });
       if(response.status == '200'){
-        navigation.navigate("PasswordChange")
+        handleLogin()
       }
     }catch(error){
       if(error instanceof Yup.ValidationError){
-        Alert.alert('Opa', error.message);
+        Alert.alert('Algo está errado', error.message);
       }else{
         Alert.alert(
           'Erro na autenticação', 
@@ -83,7 +83,6 @@ export function Login() {
             onChangeText={setPassword}
             value={password}
           />
-          <ForgotPassword>Esqueci minha senha</ForgotPassword>
         </Form>
           <Button
             title="Login"
