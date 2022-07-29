@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 
 import { Input } from '../../components/Input';
 import { Container, Form, Frame, Header, HeaderImage } from './styles'
-import { StatusBar } from 'expo-status-bar';
 import { Button } from '../../components/Button';
 
 import { Alert, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
@@ -22,6 +21,7 @@ import { LinePressable } from '../../components/LinePressable';
 import theme from '../../styles/theme';
 import { Portal } from 'react-native-portalize';
 import { useApp } from '../../context/AppContext';
+import { useNavigation } from '@react-navigation/native';
 
 export function CreateCourse(){
   const [ about, setAbout ] = useState('')
@@ -35,6 +35,7 @@ export function CreateCourse(){
   const categorys = [ 'Tecnologia', 'Biologia', 'Engenharia', 'Historia', 'Filosofia', 'Matemática']
 
   const { handleAddCourse } = useApp()
+  const navigation = useNavigation();
 
   const onOpen = () => {
     modalizeRef.current?.open();
@@ -99,7 +100,7 @@ export function CreateCourse(){
       }else{
         Alert.alert(
           'Erro na autenticação', 
-          'Ocorreu um erro ao fazer login, verifique as credenciais'
+          'Ocorreu um erro ao criar o curso, verifique os dados e tente novamente'
         )
       }
       return
@@ -119,7 +120,6 @@ export function CreateCourse(){
       return
 
     if(isValidate){
-      console.log('Adicionando ao banco de dados')
       setRequestLoading(true)
   
       try {
@@ -144,6 +144,7 @@ export function CreateCourse(){
         )
       } finally {
         setRequestLoading(false)
+        navigation.navigate('Home')
       }
     }
   }
@@ -152,11 +153,10 @@ export function CreateCourse(){
     <Container>
       <ViewCloseKeyboard  onPress={Keyboard.dismiss}>
         <ViewUpperKeyboard behavior="position" enabled>
-          <StatusBar style='light' backgroundColor='transparent' translucent/>
           <Frame>
             <Header onPress={handlePickImage}>
               {image? <HeaderImage source={{uri: image}}/>: null}
-              <Icon name='camera' size={48} color="#FAFAFA" style={{zIndex: 10, position: 'absolute', top: 100}}/>
+              <Icon name='camera' size={48} color="#FAFAFA" style={{zIndex: 10, position: 'absolute', top: 125}}/>
             </Header>
           </Frame>
           <Form>
@@ -194,7 +194,7 @@ export function CreateCourse(){
             <Button 
               title="Cadastrar"
               loading={requestLoading }
-              onPress={handleCreateCourse}
+              onPress={() => navigation.navigate('User')}
             />
           </Form>
           <Portal>

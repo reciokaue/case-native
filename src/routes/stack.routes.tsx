@@ -9,9 +9,9 @@ const Stack: any = createStackNavigator();
 export function StackRoutes(){
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Login" component={Home} />
-      <Stack.Screen name="Signup" component={CourseDetail} />
-      <Stack.Screen name="PasswordChange" component={User} />
+      <Stack.Screen name="HomeScreen" component={Home} />
+      <Stack.Screen name="CourseDetail" component={CourseDetail} />
+      <Stack.Screen name="User" component={User} />
     </Stack.Navigator>
   )
 }

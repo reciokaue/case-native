@@ -31,7 +31,7 @@ export function Button({
     <Wrapper
       onPress={onPress}
       color={color ? color : theme.colors.main} 
-      activeOpacity={0.9}
+      activeOpacity={1}
       enabled={loading? false: enabled}
     >
       <Container 

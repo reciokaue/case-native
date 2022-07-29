@@ -8,6 +8,7 @@ import { useFonts, Inter_400Regular, Inter_500Medium} from '@expo-google-fonts/i
 import { Archivo_400Regular, Archivo_500Medium, Archivo_600SemiBold} from '@expo-google-fonts/archivo';
 import AppLoading from 'expo-app-loading';
 import { AppProvider } from './src/context/AppContext';
+import { StatusBar } from 'react-native';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,6 +26,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <AppProvider>
+        <StatusBar barStyle={'light-content'} backgroundColor="transparent" translucent/>
         <Routes/>
       </AppProvider>
     </ThemeProvider>

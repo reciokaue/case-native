@@ -2,55 +2,22 @@ import React, { useState } from "react";
 
 import { Input } from "../../components/Input";
 import { InputPassword } from "../../components/InputPassword";
-import { Container, ForgotPassword, Form, Frame, Heading, SubTitle, Title } from "./styles";
+import { Container, Form, Frame, Heading, SubTitle, Title } from "./styles";
 import { Button } from "../../components/Button";
-import { Alert, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native";
-import { api } from "../../services/api";
+import { Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from "react-native";
 
 import theme from "../../styles/theme";
 import HeroImage from "../../assets/loginHero.svg"
-import { useNavigation } from "@react-navigation/native";
 
 const ViewCloseKeyboard:any = TouchableWithoutFeedback
 const ViewUpperKeyboard:any = KeyboardAvoidingView
 
-import * as Yup from 'yup';
 import { useApp } from "../../context/AppContext";
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { handleLogin } = useApp() 
-
-  async function handleSignIn(){
-    try{
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('E-mail obrigatório')
-          .email('Digite um e-mail válido'),
-        password: Yup.string()
-          .required('A senha é obrigatória')
-      });
-      await schema.validate({ email, password });
-
-      const response:any = await api.post('/login', {
-        email,
-        password
-      });
-      if(response.status == '200'){
-        handleLogin()
-      }
-    }catch(error){
-      if(error instanceof Yup.ValidationError){
-        Alert.alert('Algo está errado', error.message);
-      }else{
-        Alert.alert(
-          'Erro na autenticação', 
-          'Ocorreu um erro ao fazer login, verifique as credenciais'
-        )
-      }
-    }  
-  }
 
   return (
     <ViewCloseKeyboard onPress={Keyboard.dismiss}>
@@ -86,7 +53,7 @@ export function Login() {
         </Form>
           <Button
             title="Login"
-            onPress={handleSignIn}
+            onPress={() => handleLogin (email, password)}
           />
         </Frame>
         </ViewUpperKeyboard>

@@ -31,7 +31,7 @@ export function CourseCard({name, owner, category, about, image}: CourseProps){
   }
 
   return (
-    <Container>
+    <Container activeOpacity={0.95}>
       <Effect>
         <Content>
           <Divisor>
