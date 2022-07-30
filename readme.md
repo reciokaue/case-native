@@ -31,7 +31,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ### About The Project
-# RentX
+# React Native Case
 
 <a href="https://www.figma.com/file/8mZYNietV4BiR8dqfgF7bI/React-Native-Case?node-id=8000%3A1469">
     <img src="./.github/mockups.png" alt="Brief project design" style="object-fit: contain" width="100%">
@@ -41,6 +41,36 @@
 <a href="https://www.figma.com/file/8mZYNietV4BiR8dqfgF7bI/React-Native-Case?node-id=8000%3A1469">Click here to view the entire project design on Figma</a>
 
 # 
+
+um sistema
+para que um professor realize um login e consiga
+cadastrar um curso para sua plataforma.
+
+Não funcionais:
+- [x] React Native;
+- [x] Node.js para o backend;
+- [x] senhas devem ser criptografadas utilizando
+BCrypt;
+- [x] Aplicativo;
+
+Funcionais:
+
+Cadastro de curso
+  - [x] Nome
+  - [x] Professor responsável
+  - [x] Categoria
+  - [x] Descrição
+  - [x] Imagem
+
+Login
+  - [x] Email
+  - [x] Senha
+
+Features 
+  - [x] Senha
+  - [x] Senha
+  - [x] Senha
+
 
 ### Built With
 

@@ -20,13 +20,17 @@ export const CourseList = styled.FlatList.attrs({
 
 export const Header = styled.View`
   width: 100%;
-  padding: ${getStatusBarHeight() + 12}px ${RFValue(24)}px  ${RFValue(12)}px ;
-
+  padding-top: ${getStatusBarHeight() + 12}px ;
   background-color: ${({theme}) => theme.colors.main};
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+`
+export const Line = styled.View`
+  padding: 0 ${RFValue(24)}px  ${RFValue(12)}px ;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
   flex-direction: row;
-
 `
 export const HelloUser = styled.Text`
   font-size: ${RFValue(25)}px;
