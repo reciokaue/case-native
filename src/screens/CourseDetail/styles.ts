@@ -6,6 +6,17 @@ export const Container = styled.ScrollView`
   flex: 1;
   height: 100%;
 `
+export const Wrapper = styled.View`
+  flex: 1;
+  height: 100%;
+  width: 100%;
+`
+export const Footer = styled.View`
+  width: 100%;
+  padding: ${RFValue(24)}px;
+  justify-content: center;
+  align-items: center;
+`
 export const Header = styled.TouchableOpacity`
   width: 100%;
   height: ${RFValue(270)}px;
@@ -45,12 +56,7 @@ export const IconBox = styled.View`
   align-items: center;
   margin-top: 10px;
 `
-export const Form = styled.View`
-  background: ${({ theme }) => theme.colors.background_primary};
-
-  padding: ${RFValue(24)}px;
-`
-export const Frame = styled.View`
+export const Section = styled.View`
   flex: 1;
   padding: 24px;
   justify-content: flex-start;

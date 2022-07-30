@@ -28,7 +28,9 @@ export const Effect = styled(Button)`
   justify-content: space-between;
   flex-direction: row;
 `;
-export const Title = styled.Text`
+export const Title = styled.Text.attrs({
+  numberOfLines: 2,
+})`
   font-family: ${({theme}) => theme.fonts.primary_500};
   font-weight: bold;
   font-size: ${RFValue(17)}px;

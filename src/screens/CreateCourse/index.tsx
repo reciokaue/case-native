@@ -1,6 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import * as ImagePicker from "expo-image-picker";
 import * as Yup from 'yup';
 
 import { Input } from '../../components/Input';
@@ -15,13 +14,15 @@ import Feather from '@expo/vector-icons/Feather'
 const Icon:any = Feather
 
 import { api } from '../../services/api';
-import { storage } from '../../services/firebase';
-import { Modalize } from 'react-native-modalize';
+ import { Modalize } from 'react-native-modalize';
 import { LinePressable } from '../../components/LinePressable';
 import theme from '../../styles/theme';
 import { Portal } from 'react-native-portalize';
-import { useApp } from '../../context/AppContext';
-import { useNavigation } from '@react-navigation/native';
+import { CourseProps, useApp } from '../../context/AppContext';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import handleBlobImage from '../../utils/handleBlobImage';
+import { categorys } from '../../utils/handleGetCategoryIcon';
+import handlePickImage from '../../utils/handlePickImage';
 
 export function CreateCourse(){
   const [ about, setAbout ] = useState('')
@@ -30,53 +31,23 @@ export function CreateCourse(){
   const [ category, setCategory ] = useState('')
   const [ image, setImage] = useState('');
 
+  const [ isEditing, setIsEditing ] = useState(false);
   const [ requestLoading, setRequestLoading] = useState(false);
+
+  const route = useRoute()
+  const data = route.params as CourseProps
   const modalizeRef = useRef<Modalize>(null);
-  const categorys = [ 'Tecnologia', 'Biologia', 'Engenharia', 'Historia', 'Filosofia', 'Matemática']
-
-  const { handleAddCourse } = useApp()
   const navigation = useNavigation();
+  const { handleEditCourse, handleDeleteCourse, handleAddCourse } = useApp()
 
-  const onOpen = () => {
-    modalizeRef.current?.open();
-  };
+  const onOpen = () => { modalizeRef.current?.open(); };
   function handleSelecCategory(category: string){
     setCategory(category)
     modalizeRef.current?.close();
   };
-
-  async function handlePickImage(){
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    if (!result.cancelled) {
-      setImage(result.uri);
-    }
-  }
-  async function handleBlobImage(){
-    const filename = image.substring(image.lastIndexOf('/') + 1);
-
-    const blob: Blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function () {
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", image, true);
-      xhr.send(null);
-    });
-    
-    const ref = storage.ref(`images/${filename}`);
-    const snapshot = await ref.put(blob, { contentType: "image/png" });
-    const remoteURL = await snapshot.ref.getDownloadURL();
-
-    return remoteURL
+  async function handlePickImageFromGallery(){
+    const result = await handlePickImage()
+    setImage(result)
   }
   async function handleValidade(){
     try{
@@ -106,13 +77,6 @@ export function CreateCourse(){
       return
     }  
   }
-  function handleClearData(){
-    setCourseName('')
-    setAbout('')
-    setOwner('')
-    setCategory('')
-    setImage('')
-  }
   async function handleCreateCourse(){
     const isValidate = await handleValidade()
     
@@ -121,22 +85,26 @@ export function CreateCourse(){
 
     if(isValidate){
       setRequestLoading(true)
-  
+      
       try {
-        const imageUrl = await handleBlobImage()
-        const newCourse = {
-          name: courseName,
-          owner,
-          category,
-          about,
-          image: imageUrl
+        const imageUrl = await handleBlobImage(image)
+        
+        if(isEditing){
+          const newCourse = {id: data.id, name: courseName,owner,category,about,image: imageUrl }
+          console.log(newCourse)
+          await api.put('/course', newCourse);
+          handleEditCourse(newCourse)
+        }else{
+          const newCourse = {name: courseName,owner,category,about,image: imageUrl }
+          await api.post('/course', newCourse);
+          handleAddCourse(newCourse)
         }
-
-        await api.post('/course', newCourse);
-
-        handleAddCourse(newCourse)
-        handleClearData()
-
+        setCourseName('')
+        setAbout('')
+        setOwner('')
+        setCategory('')
+        setImage('')
+        setIsEditing(false)
       } catch (error) {
         console.log(error)
         Alert.alert(
@@ -148,13 +116,37 @@ export function CreateCourse(){
       }
     }
   }
+  async function handleDelete(){
+    Alert.alert(
+      'Remover item',
+      'Tem certeza que você deseja remover esse item?',
+      [ 
+        {text: 'Não'},
+        {text: 'Sim', onPress: () => {
+          handleDeleteCourse(data.id as string)
+          navigation.navigate('Home')
+        }}
+      ]
+    )
+  }
+
+  useEffect(() => {
+    if(data != undefined){
+      setIsEditing(true)
+      setCourseName(data.name)
+      setAbout(data.about)
+      setOwner(data.owner)
+      setCategory(data.category)
+      setImage(data.image)
+    }
+  }, [data])
 
   return (
     <Container>
       <ViewCloseKeyboard  onPress={Keyboard.dismiss}>
-        <ViewUpperKeyboard behavior="position" enabled>
+        <>
           <Frame>
-            <Header onPress={handlePickImage}>
+            <Header onPress={handlePickImageFromGallery}>
               {image? <HeaderImage source={{uri: image}}/>: null}
               <Icon name='camera' size={48} color="#FAFAFA" style={{zIndex: 10, position: 'absolute', top: 125}}/>
             </Header>
@@ -171,6 +163,7 @@ export function CreateCourse(){
               iconName="user-check"
               placeholder="Professor responsável"
               autoCorrect={false}
+              autoCapitalize='words'
               onChangeText={setOwner}
               value={owner}
             />
@@ -192,10 +185,16 @@ export function CreateCourse(){
               onPress={onOpen}
             />
             <Button 
-              title="Cadastrar"
+              title={isEditing? 'Editar curso': 'Cadastrar'}
               loading={requestLoading }
               onPress={handleCreateCourse}
             />
+            {isEditing? 
+              <Button 
+                title="Excluir" color={theme.colors.exclude}
+                onPress={handleDelete}
+              />: null
+            }
           </Form>
           <Portal>
             <Modalize
@@ -214,7 +213,7 @@ export function CreateCourse(){
             >
             </Modalize>
           </Portal>
-        </ViewUpperKeyboard>
+        </>
       </ViewCloseKeyboard>
     </Container>
   )

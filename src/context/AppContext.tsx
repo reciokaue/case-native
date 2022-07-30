@@ -7,18 +7,20 @@ import * as Yup from 'yup';
 
 export interface CourseProps {
   id?: string
-  name: string
-  owner: string
-  category: string
-  about: string
-  image: string
+  name?: string
+  owner?: string
+  category?: string
+  about?: string
+  image?: string
 }
 
 interface AppContextData {
   courses: [CourseProps] | undefined
   handleAddCourse: (data: CourseProps) => void
+  handleEditCourse: (data: CourseProps) => void
+  handleDeleteCourse: (id: string) => void
   isUserLogged: boolean
-  handleLogin: (email: string, password: string) => boolean
+  handleLogin: (email: string, password: string) => void
   handleSignup: (name: string, email: string, password: string) => void
   handleLogout: () => void
   userName: string
@@ -37,6 +39,20 @@ function AppProvider({ children } : AuthProviderProps) {
 
   function handleAddCourse(course: CourseProps){
     setCourses([...courses, course])
+  }
+  function handleEditCourse(course: CourseProps){
+    const filtered = courses!.filter((item) =>  {
+      return item.id != course.id
+    })
+    filtered.push(course)
+    setCourses(filtered)
+  }
+  async function handleDeleteCourse(id: string){
+    api.delete(`/course/${id}`);
+    const filtered = courses!.filter((item) =>  {
+      return item.id != id
+    })
+    setCourses(filtered)
   }
 
   async function handleLogin(email: string, password: string){
@@ -72,7 +88,7 @@ function AppProvider({ children } : AuthProviderProps) {
           'Ocorreu um erro ao fazer login, verifique as credenciais'
         )
       }
-      return false
+      return
     }
 
     try{
@@ -144,7 +160,7 @@ function AppProvider({ children } : AuthProviderProps) {
   return (
     <AppContext.Provider 
       value={{ 
-        courses, handleAddCourse,
+        courses, handleAddCourse, handleEditCourse, handleDeleteCourse,
         handleLogin, handleLogout, isUserLogged, handleSignup,
         userName
       }}

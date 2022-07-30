@@ -6,31 +6,15 @@ import { CourseProps } from '../../context/AppContext';
 
 import Feather from '@expo/vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import handleGetCategoryIcon from '../../utils/handleGetCategoryIcon';
 const Icon:any = Feather
 
 export function CourseCard({id, name, owner, category, about, image}: CourseProps){
   const theme = useTheme();
-  const IconName = getCourseIcon(category)
+  const IconName = handleGetCategoryIcon(category)
   const navigation = useNavigation()
 
-  function getCourseIcon(name: string){
-    switch (name) {
-      case 'Tecnologia':
-    return 'terminal'
-      case 'Biologia':
-    return 'feather'
-      case 'Historia':
-    return 'anchor'
-      case 'Matemática':
-    return 'hash'
-     case 'Filosofia':
-    return 'users'
-      case 'Engenharia':
-    return 'truck'
-      default:
-        break;
-    }
-  }
+
 
   function handleGoToCourseDetail(){
     navigation.navigate({
