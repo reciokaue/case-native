@@ -24,6 +24,7 @@ export function Button({
   enabled = true,
   loading = false,
   light = false,
+  ...rest
 }: Props){
   const theme = useTheme();
 
@@ -33,6 +34,7 @@ export function Button({
       color={color ? color : theme.colors.main} 
       activeOpacity={1}
       enabled={loading? false: enabled}
+      {...rest}
     >
       <Container 
         style={{ opacity: (enabled === false || loading === true) ? .5 : 1,

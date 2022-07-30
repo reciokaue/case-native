@@ -29,3 +29,11 @@ export const Frame = styled.View`
   align-items: center;
   background: #466EB6;
 `
+export const Title = styled.Text`
+  font-size: ${RFValue(25)}px;
+  font-family: ${({ theme }) => theme.fonts.secondary_600};
+  color: ${({ theme }) => theme.colors.title}; 
+  text-align: left;
+  width: 100%;
+  margin-bottom: 12px;
+`

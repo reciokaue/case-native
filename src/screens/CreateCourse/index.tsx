@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 
 import { Input } from '../../components/Input';
-import { Container, Form, Frame, Header, HeaderImage } from './styles'
+import { Container, Form, Frame, Header, HeaderImage, Title } from './styles'
 import { Button } from '../../components/Button';
 
 import { Alert, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
@@ -152,6 +152,7 @@ export function CreateCourse(){
             </Header>
           </Frame>
           <Form>
+            <Title>{isEditing? 'Editar': 'Adicionar'} curso</Title>
             <Input
               iconName="edit-3"
               placeholder="Nome do curso"
@@ -188,6 +189,7 @@ export function CreateCourse(){
               title={isEditing? 'Editar curso': 'Cadastrar'}
               loading={requestLoading }
               onPress={handleCreateCourse}
+              style={{marginTop: 32}}
             />
             {isEditing? 
               <Button 
