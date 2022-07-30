@@ -1,6 +1,6 @@
 <div id="top">
   <a href="https://github.com/reciokaue/case-native">
-    <img src="./.github/header.png" alt="Brief project design" style="object-fit: contain" width="100%" height="350px">
+    <img src="./.github/capa.png" alt="Brief project design" style="object-fit: contain" width="100%" height="350px">
   </a>
 </div>
 
@@ -16,7 +16,7 @@
 
 <br />
 <div align="center">
-<h3 align="center">RentX</h3>
+<h3 align="center">Case Native</h3>
 
   <p align="center">
     <a href="https://github.com/reciokaue/case-native"><strong>Explore the docs »</strong></a>
@@ -141,6 +141,8 @@ Kaue Recio - kaue.recio2@gmail.com
 
 Project Link: [https://github.com/reciokaue/case-native](https://github.com/reciokaue/case-native)
 
+
+<img src="./.github/header.png" alt="Brief project design" style="object-fit: contain" width="100%">
 
 <!-- LICENSE -->
 ## License
