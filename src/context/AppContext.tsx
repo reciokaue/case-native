@@ -18,7 +18,8 @@ interface AppContextData {
   courses: [CourseProps] | undefined
   handleAddCourse: (data: CourseProps) => void
   isUserLogged: boolean
-  handleLogin: (email: string, password: string) => void
+  handleLogin: (email: string, password: string) => boolean
+  handleSignup: (name: string, email: string, password: string) => void
   handleLogout: () => void
   userName: string
 }
@@ -55,7 +56,54 @@ function AppProvider({ children } : AuthProviderProps) {
         password
       });
       if(response.status == '200'){
-        console.log(response.data.userName)
+        setUserName(response.data.userName)
+        setIsUserLogged(true)
+      }
+    }
+    const errorMessage = (error: any) => {
+      if(error instanceof Yup.ValidationError){
+        Alert.alert('Algo está errado', error.message);
+        console.log(error)
+      }else{
+        console.log(error)
+
+        Alert.alert(
+          'Erro na autenticação', 
+          'Ocorreu um erro ao fazer login, verifique as credenciais'
+        )
+      }
+      return false
+    }
+
+    try{
+      await validate()
+      await testUser()
+    }catch(error){
+      errorMessage(error)
+    } 
+  }
+  async function handleSignup(name: string, email: string, password: string){
+    const validate = async () => {
+      const schema = Yup.object().shape({
+        name: Yup.string()
+          .required('O nome é obrigatório'),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail válido'),
+        password: Yup.string()
+          .required('A senha é obrigatória')
+      });
+      await schema.validate({name,  email, password});
+
+    }
+    const testUser = async () => {
+      const response:any = await api.post('/user', { name, email, password});
+      if(response.data.error){
+        Alert.alert('O email já esta em uso!');
+        return
+      }
+
+      if(response.status == '200'){
         setUserName(response.data.userName)
         setIsUserLogged(true)
       }
@@ -81,6 +129,7 @@ function AppProvider({ children } : AuthProviderProps) {
       errorMessage(error)
     } 
   }
+
   const handleLogout = () => setIsUserLogged(false)
 
   
@@ -96,7 +145,7 @@ function AppProvider({ children } : AuthProviderProps) {
     <AppContext.Provider 
       value={{ 
         courses, handleAddCourse,
-        handleLogin, handleLogout, isUserLogged,
+        handleLogin, handleLogout, isUserLogged, handleSignup,
         userName
       }}
     >

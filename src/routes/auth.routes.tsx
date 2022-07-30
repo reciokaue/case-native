@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { Login } from '../screens/Login';
-import { Signup } from '../screens/Signup';
-import { PasswordChange } from '../screens/PasswordChange';
 
 import { createStackNavigator } from '@react-navigation/stack';
+import { Signup } from '../screens/Signup';
 const Stack: any = createStackNavigator();
 
 export function AuthRoutes(){

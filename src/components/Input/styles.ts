@@ -7,7 +7,7 @@ interface ContainerProps {
 
 export const Container = styled.View<ContainerProps>`
   flex-direction: row;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   border-width: 2px;
   border-color: transparent;  
   border-radius: 8px;

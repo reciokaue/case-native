@@ -2,9 +2,9 @@ import React from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthRoutes } from './auth.routes';
-import { TabRoutes } from './tab.routes';
 
 import { useApp } from '../context/AppContext';
+import { StackRoutes } from './stack.routes';
 
 export function Routes(){
   const { isUserLogged } = useApp()
@@ -12,7 +12,7 @@ export function Routes(){
   return (
     <NavigationContainer>
       {isUserLogged?
-        <TabRoutes/>:
+        <StackRoutes/>:
         <AuthRoutes/>
       }
     </NavigationContainer>

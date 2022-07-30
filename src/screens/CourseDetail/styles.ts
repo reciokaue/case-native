@@ -1,5 +1,58 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+import { RFValue } from 'react-native-responsive-fontsize';
 
+export const Container = styled.ScrollView`
+  flex: 1;
+  height: 100%;
+`
+export const Header = styled.TouchableOpacity`
+  width: 100%;
+  height: ${RFValue(270)}px;
+  background: ${({ theme }) => theme.colors.main};
+
+  align-items: center;
+  justify-content: center;
+`
+export const HeaderImage = styled.Image`
+  width: 100%;
+  height: 100%;
+`
+export const Title = styled.Text`
+  font-size: ${RFValue(25)}px;
+  font-family: ${({ theme }) => theme.fonts.secondary_600};
+  color: ${({ theme }) => theme.colors.title}; 
+`
+export const Subtitle = styled.Text`
+  font-size: ${RFValue(15)}px;
+  font-family: ${({ theme }) => theme.fonts.secondary_600};
+  color: ${({ theme }) => theme.colors.title}; 
+  margin-top: 20px;
+`
+export const About = styled.Text`
+  font-size: ${RFValue(15)}px;
+  font-family: ${({ theme }) => theme.fonts.secondary_500};
+  color: ${({ theme }) => theme.colors.text}; 
+`
+export const Professor = styled.Text`
+  font-size: ${RFValue(15)}px;
+  font-family: ${({ theme }) => theme.fonts.secondary_500};
+  color: ${({ theme }) => theme.colors.main}; 
+`
+export const IconBox = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+`
+export const Form = styled.View`
+  background: ${({ theme }) => theme.colors.background_primary};
+
+  padding: ${RFValue(24)}px;
+`
+export const Frame = styled.View`
+  flex: 1;
+  padding: 24px;
+  justify-content: flex-start;
+  align-items: flex-start;
 `

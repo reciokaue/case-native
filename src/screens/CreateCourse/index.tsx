@@ -144,7 +144,7 @@ export function CreateCourse(){
         )
       } finally {
         setRequestLoading(false)
-        navigation.navigate('Home')
+        navigation.navigate('Success')
       }
     }
   }
@@ -194,7 +194,7 @@ export function CreateCourse(){
             <Button 
               title="Cadastrar"
               loading={requestLoading }
-              onPress={() => navigation.navigate('User')}
+              onPress={handleCreateCourse}
             />
           </Form>
           <Portal>

@@ -5,12 +5,14 @@ import { About, Container, Content, Divisor, Effect, Footer, Image, Professor, T
 import { CourseProps } from '../../context/AppContext';
 
 import Feather from '@expo/vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 const Icon:any = Feather
 
-export function CourseCard({name, owner, category, about, image}: CourseProps){
+export function CourseCard({id, name, owner, category, about, image}: CourseProps){
   const theme = useTheme();
   const IconName = getCourseIcon(category)
-  
+  const navigation = useNavigation()
+
   function getCourseIcon(name: string){
     switch (name) {
       case 'Tecnologia':
@@ -30,8 +32,15 @@ export function CourseCard({name, owner, category, about, image}: CourseProps){
     }
   }
 
+  function handleGoToCourseDetail(){
+    navigation.navigate({
+      name: 'CourseDetail',
+      params: {id, name, owner, category, about, image, categoryIconName: IconName}
+    })
+  }
+
   return (
-    <Container activeOpacity={0.95}>
+    <Container activeOpacity={0.95} onPress={handleGoToCourseDetail}>
       <Effect>
         <Content>
           <Divisor>
